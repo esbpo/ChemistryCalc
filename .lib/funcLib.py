@@ -16,6 +16,8 @@ def compoundSplit(compound):
 
         if cl[i].islower():
             elementLower = cl[i]
+            if not cl[i+1].isupper():
+                return False  # Invalid format, lowercase without preceding uppercase
 
         if cl[i].isupper():
             if elementLower != "":
@@ -36,7 +38,7 @@ def compoundSplit(compound):
 def molarMass(compound):
     elements = compoundSplit(compound)
     total_mass = 0
-    if elements != {}:
+    if elements != {} and elements is not False:
         for element in elements.keys():
             if element in e.elements:
                 atomic_weight = e.elements[element]["atomic_weight"]
@@ -46,3 +48,8 @@ def molarMass(compound):
         return [compound, total_mass]
     else:
         return False
+
+def mol(compound, mass):
+    molar_mass = molarMass(compound)
+    if molar_mass:
+        return mass / molar_mass[1]
