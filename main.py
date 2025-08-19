@@ -1,7 +1,7 @@
 import sys
 sys.path.append(".lib")
-import funcLib as f
-import elementLib as e
+import funcLib as f # type: ignore
+import elementLib as e # type: ignore
 
 quit = False
 exit_commands = ["quit", "exit"]
