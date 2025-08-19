@@ -1,3 +1,5 @@
+import sys
+sys.path.append(".lib")
 import funcLib as f
 import elementLib as e
 
@@ -63,11 +65,13 @@ while not quit:
                 mass = float(userInput[2])
                 out = f.mol(userInput[1], mass)
                 if out:
-                    print(f"{userInput[2]} g of {userInput[1]} is {out} mol")
+                    print(f"{userInput[2]} g of {userInput[1]} is {out} mol(s).")
                 else:
                     print(f"Compound {userInput[1]} contains elements not found in the periodic table.")
             except ValueError:
                 print("Please provide a valid mass in grams.")
+        else:
+            print("Usage: mol <compound> <mass_in_grams>")
     
     elif userInput[0] in exit_commands:
         quit = True
