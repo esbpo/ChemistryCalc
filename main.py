@@ -42,6 +42,7 @@ while not quit:
             print("2. split <compound> <info> - Split a compound into its constituent elements and their quantities. Display info if 'info' is provided.")
             print("3. info <element_symbol> - Get information about an element.")
             print("4. help <command> - Get help on a specific command, if left blank show this message.")
+            print("5. mol <compound> <mass_in_grams> - Calculate the number of moles in a given mass of a compound.")
             print("?. quit/exit - Exit the program.")
         else:
             if userInput[1] == "molarmass":
