@@ -53,3 +53,12 @@ def mol(compound, mass):
     molar_mass = molarMass(compound)
     if molar_mass:
         return mass / molar_mass[1]
+    else:
+        return False
+    
+def conc(compound, mass, volume):
+    moles = mol(compound, mass)
+    if moles:
+        return moles / volume
+    else:
+        return False

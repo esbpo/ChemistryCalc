@@ -2,6 +2,7 @@ import sys
 sys.path.append(".lib")
 import funcLib as f # type: ignore
 import elementLib as e # type: ignore
+import SIConvertLib as SI # type: ignore
 
 quit = False
 exit_commands = ["quit", "exit"]
@@ -43,12 +44,21 @@ while not quit:
             print("3. info <element_symbol> - Get information about an element.")
             print("4. help <command> - Get help on a specific command, if left blank show this message.")
             print("5. mol <compound> <mass_in_grams> - Calculate the number of moles in a given mass of a compound.")
+            print("6. convert <value> <unit> - Convert a given value in a given unit to either meters, grams, seconds or liters")
             print("?. quit/exit - Exit the program.")
         else:
             if userInput[1] == "molarmass":
-                print("Usage: molarMass <compound>\nCalculates the molar mass of a given chemical compound. Example: molarMass H2O = 18.015 g/mol")
+                print("Usage: molarMass <compound>\nCalculates the molar mass of a given chemical compound. Example: molarMass H2O > 18.015 g/mol")
             elif userInput[1] == "split":
-                print("Usage: split <compound> <info>\nSplits a chemical compound into its constituent elements and their quantities.\nWrites element info if 'info' is given. Example: split CH3CH2COOH = H: 6, O: 2, C: 3")
+                print("Usage: split <compound> <info>\nSplits a chemical compound into its constituent elements and their quantities.\nWrites element info if 'info' is given. Example: split CH3CH2COOH > H: 6, O: 2, C: 3")
+            elif userInput[1] == "info":
+                print("Usage: info <element_symbol> - Get information about a specific element. Example: info Ca > Name: Calcium, Atomic Number: 20, Atomic Weight: 40.078 g/mol},")
+            elif userInput[1] == "mol":
+                ...
+            elif userInput[1] == "convert":
+                ...
+            elif userInput[1] == "units":
+                SI.printUnits()
 
     elif userInput[0] == "info":
         if len(userInput) == 2:
@@ -73,6 +83,45 @@ while not quit:
                 print("Please provide a valid mass in grams.")
         else:
             print("Usage: mol <compound> <mass_in_grams>")
+
+    elif userInput[0] == "concentration":
+        if len(userInput) == 4:
+            try:
+                mass = float(userInput[2])
+                volume = float(userInput[3])
+                out = f.conc(userInput[1], mass, volume)
+                if out:
+                    print(f"The concentration of {mass}g of {userInput[1]} in {volume}L is {out} mol/L.")
+                else:
+                    print(f"Compound {userInput[1]} contains elements not found in the periodic table.")
+            except ValueError:
+                print("Please provide valid mass in grams and volume in liters.")
+
+    elif userInput[0] == "density":
+        if len(userInput) == 3:
+            try:
+                mass = float(userInput[1])
+                volume = float(userInput[2])
+                if volume <= 0:
+                    print("Volume must be greater than zero.")
+                else:
+                    density = mass / volume
+                    print(f"The density of the substance is {density} g/L.")
+            except ValueError:
+                print("Please provide valid mass in grams and volume in L.")
+
+    elif userInput[0] == "convert":
+        if len(userInput) == 3:
+            try:
+                unit = userInput[2]
+                value = float(userInput[1])
+                out = SI.convert_to_si(value, unit)
+                if out:
+                    print(f"{value} {unit} is equivalent to {out[0]} {out[1]}")
+                else:
+                    print("Please give a valid unit, write 'help units' for list")
+            except ValueError:
+                print("Value not valid")
     
     elif userInput[0] in exit_commands:
         quit = True
