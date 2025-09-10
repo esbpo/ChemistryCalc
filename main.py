@@ -10,7 +10,10 @@ print("Enter 'help' for a list of commands.")
 
 while not quit:
     userInput = input("> ").strip().split()
-    userInput[0] = userInput[0].lower()
+    if len(userInput) > 0:
+        userInput[0] = userInput[0].lower()
+    else:
+        continue
 
     if userInput[0] == "molarmass":
         if len(userInput) == 2:
@@ -45,6 +48,9 @@ while not quit:
             print("4. help <command> - Get help on a specific command, if left blank show this message.")
             print("5. mol <compound> <mass_in_grams> - Calculate the number of moles in a given mass of a compound.")
             print("6. convert <value> <unit> - Convert a given value in a given unit to either meters, grams, seconds or liters")
+            print("7. concentration <compound> <mass_in_grams> <volume_in_liters> - Calculate the concentration in mol/L of a given mass of a compound in a given volume.")
+            print("8. density <mass_in_grams> <volume_in_liters> - Calculate the density in g/L of a given mass in a given volume.")
+            print("9. equality <reaction> <molar1> <molar2> ... - Calculate the equalityconstant of a given reaction with the molars of the substances.")
             print("?. quit/exit - Exit the program.")
         else:
             if userInput[1] == "molarmass":
@@ -54,9 +60,14 @@ while not quit:
             elif userInput[1] == "info":
                 print("Usage: info <element_symbol> - Get information about a specific element. Example: info Ca > Name: Calcium, Atomic Number: 20, Atomic Weight: 40.078 g/mol},")
             elif userInput[1] == "mol":
-                ...
+                print("Usage: mol <compound> <mass_in_grams> - Calculate the number of moles in a given mass of a compound. Example: mol H2O 18.015 > 1 mol")
+            elif userInput[1] == "concentration":
+                print("Usage: concentration <compound> <mass_in_grams> <volume_in_liters> - Calculate the concentration in mol/L of a given mass of a compound in a given volume. Example: concentration H2O 18.015 1 > 1 mol/L")
+            elif userInput[1] == "density":
+                print("Usage: density <mass_in_grams> <volume_in_liters> - Calculate the density in g/L of a given mass in a given volume. Example: density 1000 1 > 1000 g/L")
             elif userInput[1] == "convert":
-                ...
+                print("Usage: convert <value> <unit> - Convert a given value in a given unit to either meters, grams, seconds or liters. Example: convert 100 cm > 1 m")
+                print("Write 'help units' for a list of available units.")
             elif userInput[1] == "units":
                 SI.printUnits()
 
@@ -122,6 +133,44 @@ while not quit:
                     print("Please give a valid unit, write 'help units' for list")
             except ValueError:
                 print("Value not valid")
+
+    elif userInput[0] == "equality":
+        if len(userInput) >= 3:
+            if userInput[1] == "-k":
+                try:
+                    eqConst = float(userInput[2])
+                except ValueError:
+                    print("Please provide a valid equality constant.")
+                    continue
+                reaction = userInput[3]
+                molars = []
+                for i in range(4, len(userInput)):
+                    try:
+                        molars.append(float(userInput[i]))
+                    except ValueError:
+                        print(f"Molar value {userInput[i]} is not a valid number.")
+                        break
+                out = f.equality(reaction, molars, eqConst)
+                if out:
+                    print(f"The equality constant for the reaction: {reaction} is {out}.")
+                else:
+                    print("Error calculating the equality constant. Please check the reaction format and molar values.")
+            else:
+                reaction = userInput[1]
+                molars = []
+                for i in range(2, len(userInput)):
+                    try:
+                        molars.append(float(userInput[i]))
+                    except ValueError:
+                        print(f"Molar value {userInput[i]} is not a valid number.")
+                        break
+                out = f.equality(reaction, molars)
+                if out:
+                    print(f"The equality constant for the reaction: {reaction} is {out}.")
+                else:
+                    print("Error calculating the equality constant. Please check the reaction format and molar values.")
+        else:
+            print("Usage: equality <OPTIONS> <reaction> <molar1> <molar2> ...")
     
     elif userInput[0] in exit_commands:
         quit = True
