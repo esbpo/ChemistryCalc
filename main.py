@@ -51,7 +51,8 @@ while not quit:
             print("6. convert <value> <unit> - Convert a given value in a given unit to either meters, grams, seconds or liters")
             print("7. concentration <compound> <mass_in_grams> <volume_in_liters> - Calculate the concentration in mol/L of a given mass of a compound in a given volume.")
             print("8. density <mass_in_grams> <volume_in_liters> - Calculate the density in g/L of a given mass in a given volume.")
-            print("9. equality <reaction> <molar1> <molar2> ... - Calculate the equalityconstant of a given reaction with the molars of the substances.")
+            print("9. equality <OPTIONS> <reaction> <molar1> <molar2> ... - Calculate the equality constant of a given reaction with the molars of the substances.")
+            print("10. ph <known_factor1> <value1> <known_factor2> <value2>... - Calculate pH, known_factors: -n (moles), -v (volume), -c (concentration)")
             print("?. quit/exit - Exit the program.")
         else:
             if userInput[1] == "molarmass":
@@ -69,6 +70,11 @@ while not quit:
             elif userInput[1] == "convert":
                 print("Usage: convert <value> <unit> - Convert a given value in a given unit to either meters, grams, seconds or liters. Example: convert 100 cm > 1 m")
                 print("Write 'help units' for a list of available units.")
+            elif userInput[1] == "equality":
+                print("Usage: equality <OPTIONS> <reaction> <molar1> <molar2> - Calculate the equality constant of a given reaction with the molars of the substance. DO NOT USE")
+                print("Available options: -k <equality_constant>")
+            elif userInput[1] == "ph":
+                print("Usage: ph <known_factor1> <value1> <known_factor2> <value2>... - Calculate pH, known_factors: -n (moles), -v (volume), -c (concentration). Example: ph -c 0.1 > 1")
             elif userInput[1] == "units":
                 SI.printUnits()
 
