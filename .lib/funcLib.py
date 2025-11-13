@@ -7,6 +7,9 @@ def compoundSplit(compound):
     elementLower = ""
     element = ""
     elements = {}
+    inLoop = False
+    loop = {}
+    loopKey = 0
     for i in range(len(cl)):
         if cl[i].isdigit():
             if cl[i-1].isdigit():
@@ -25,13 +28,31 @@ def compoundSplit(compound):
                 elementLower = ""
             else:
                 element = cl[i]
+
+        if cl[i] == ")":
+            loopKey = int(cl[i-1])
+            quantity = 1
+            inLoop = True
+        elif cl[i] == "(":
+            for key in loop.keys():
+                if key in elements:
+                    elements[key] += loop[key] * loopKey
+                else:
+                    elements[key] = loop[key] * loopKey
+            inLoop = False
         
         if element != "":
-            if element in elements:
-                elements[element] += quantity
+            if inLoop:
+                if element in loop:
+                    loop[element] += quantity
+                else:
+                    loop[element] = quantity
             else:
-                elements[element] = quantity
-            quantity = 1
+                if element in elements:
+                    elements[element] += quantity
+                else:
+                    elements[element] = quantity
+                quantity = 1
             element = ""
     return elements
 
