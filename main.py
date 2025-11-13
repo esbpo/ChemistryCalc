@@ -6,7 +6,7 @@ import SIConvertLib as SI # type: ignore
 import math
 
 quit = False
-exit_commands = ["quit", "exit"]
+exit_commands = ["quit", "exit", "ext"]
 print("Enter 'help' for a list of commands.")
 
 while not quit:
@@ -53,7 +53,7 @@ while not quit:
             print("8. density <mass_in_grams> <volume_in_liters> - Calculate the density in g/L of a given mass in a given volume.")
             print("9. equality <OPTIONS> <reaction> <molar1> <molar2> ... - Calculate the equality constant of a given reaction with the molars of the substances.")
             print("10. ph <known_factor1> <value1> <known_factor2> <value2>... - Calculate pH, known_factors: -n (moles), -v (volume), -c (concentration)")
-            print("?. quit/exit - Exit the program.")
+            print("?. quit/exit/ext - Exit the program.")
         else:
             if userInput[1] == "molarmass":
                 print("Usage: molarMass <compound>\nCalculates the molar mass of a given chemical compound. Example: molarMass H2O > 18.015 g/mol")
