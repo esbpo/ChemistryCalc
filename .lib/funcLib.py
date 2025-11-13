@@ -13,7 +13,10 @@ def compoundSplit(compound):
     for i in range(len(cl)):
         if cl[i].isdigit():
             if cl[i-1].isdigit():
-                quantity = int(cl[i]+cl[i-1])
+                if cl[i-2].isdigit():
+                    quantity = int(cl[i]+cl[i-1]+cl[i-2])
+                else:
+                    quantity = int(cl[i]+cl[i-1])
             else:
                 quantity = int(cl[i])
 
