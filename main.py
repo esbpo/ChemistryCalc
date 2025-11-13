@@ -183,19 +183,19 @@ while not quit:
         known_factors = {}
         for i in range(len(userInput)):
             item = userInput[i]
-            if item == "c":
-                known_factors["c"] = float(userInput[i+1])
-            elif item == "n":
-                known_factors["n"] = float(userInput[i+1])
-            elif item == "v":
-                known_factors["v"] = float(userInput[i+1])
+            if item == "-c":
+                known_factors["-c"] = float(userInput[i+1])
+            elif item == "-n":
+                known_factors["-n"] = float(userInput[i+1])
+            elif item == "-v":
+                known_factors["-v"] = float(userInput[i+1])
         
-        if "c" in known_factors.keys():
-            pH = -1 * math.log10(known_factors["c"])
-            print(f"The pH of the concentration {known_factors['c']} moles/liter is {pH}")
-        elif "n" in known_factors.keys() and "v" in known_factors.keys():
-            pH = -1 * math.log10(known_factors["n"]/known_factors["v"])
-            print(f"The pH of {known_factors['n']} moles in {known_factors['v']} liter is {pH}")
+        if "-c" in known_factors.keys():
+            pH = -1 * math.log10(known_factors["-c"])
+            print(f"The pH of the concentration {known_factors['-c']} moles/liter is {pH}")
+        elif "-n" in known_factors.keys() and "-v" in known_factors.keys():
+            pH = -1 * math.log10(known_factors["-n"]/known_factors["-v"])
+            print(f"The pH of {known_factors['-n']} moles in {known_factors['-v']} liter is {pH}")
         else:
             print("Something is missing from your command.")
             print("Usage: pH <know factor 1> <value 1> <know factor 2> <value 2>")
